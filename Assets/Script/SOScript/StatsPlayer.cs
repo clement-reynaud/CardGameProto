@@ -7,6 +7,7 @@ public class StatsPlayer : ScriptableObject
 {
     public string Name;
 
+    public int MaxHp;
     public int Hp;
     public int Mana;
 

@@ -67,14 +67,16 @@ public class CardReader : MonoBehaviour
     /// <param name="card"> Carte joué par le joueur </param>
     void ActionCard(StatsCard card)
     {
-        ActionDescription = "";
+        ActionDescription = ""; 
+        ActionDescriptionBuffer = "";
         ReadCard(card);
-        Invoke("EnemyAction",2);
+        Invoke("EnemyAction",2.5f);
     }
 
     void ActionPick()
     {
         ActionDescription = "";
+        ActionDescriptionBuffer = "";
         UpdateUI(2);
         Data.PassTurn();
         Invoke("EnemyAction", 2);
@@ -210,7 +212,7 @@ public class CardReader : MonoBehaviour
     {
         LogText.color = Color.black;
         int selector;
-        enemyDisp.transform.DOPath(new Vector3[2] {new Vector3(0, 2, 0), new Vector3(0,2.8f,0)}, 0.2f);
+        enemyDisp.transform.DOPath(new Vector3[2] {new Vector3(0, 1, 0), new Vector3(0,2,0)}, 0.2f);
         switch (actualEnemy.actualName)
         {
             //Spiders
@@ -254,13 +256,13 @@ public class CardReader : MonoBehaviour
                 break;
             case "Queen Spider":
                 selector = Data.rng.Next(0, 100) + 1;
-                if (selector <= 1)
+                if (selector <= 70)
                 {
                     ActionName = "Basic Attack";
                     PlayerDisp.actualHp -= Data.rng.Next(2, 4);
                     Shake(0);
                 }
-                else if (selector > 1 && selector <= 2)
+                else if (selector > 70 && selector <= 90)
                 {
                     ActionName = "Web Spit";
                     ActionDescription = $"{actualEnemy.actualName} stole 5 mana";
