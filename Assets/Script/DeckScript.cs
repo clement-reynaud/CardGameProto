@@ -3,6 +3,7 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Security.Cryptography;
 using TMPro;
 using TMPro.EditorUtilities;
@@ -34,6 +35,14 @@ public class DeckScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Refresh();
+    }
+
+    public void Refresh()
+    {
+        if (cardInHand.Count > 0) DestroyAllCard();
+        _deck.Clear();
+
         //Temporaire. Rajoute toutes les cartes du jeu dans le deck, puis mélange le deck
         allCard = Resources.LoadAll<StatsCard>("Scriptable Object/Card");
         foreach (StatsCard item in allCard)
@@ -45,15 +54,6 @@ public class DeckScript : MonoBehaviour
 
         TakeCard(4);
     }
-
-    /*private void OnMouseDown()
-    {
-        if (Data.gameState == Assets.Script.Enums.States.PlayerTurn)
-        {
-            TakeCard(1);
-            cardReader.BroadcastMessage("ActionPick");
-        }
-    }*/
 
     public void OnClick()
     {
@@ -99,6 +99,23 @@ public class DeckScript : MonoBehaviour
         newCard.transform.position = transform.position;
         newCard.transform.DOMove(new Vector3(Data.rng.Next(-3, 3), Data.rng.Next(-4, -2), 0), 0.5f);
         cardInHand.Add(newCard);
+    }
+
+    public void DestroyCard(int nb)
+    {
+        for (int i = 0; i < nb; i++)
+        {
+            GameObject toDestroy = cardInHand[Data.rng.Next(DeckScript.cardInHand.Count)];
+            Destroy(toDestroy);
+        }   
+    }
+
+    public void DestroyAllCard()
+    {
+        foreach (GameObject item in cardInHand)
+        {
+            Destroy(item);
+        }
     }
 
 }

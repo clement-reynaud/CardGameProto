@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using TMPro;
 using TreeEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CardReader : MonoBehaviour
 {
@@ -70,7 +71,7 @@ public class CardReader : MonoBehaviour
         ActionDescription = ""; 
         ActionDescriptionBuffer = "";
         ReadCard(card);
-        Invoke("EnemyAction",2.5f);
+        if (Data.gameState == States.EnemyTurn) Invoke("EnemyAction",2.5f);
     }
 
     void ActionPick()
@@ -79,7 +80,7 @@ public class CardReader : MonoBehaviour
         ActionDescriptionBuffer = "";
         UpdateUI(2);
         Data.PassTurn();
-        Invoke("EnemyAction", 2);
+        Invoke("EnemyAction", 2.5f);
     }
 
     /// <summary>
@@ -156,7 +157,7 @@ public class CardReader : MonoBehaviour
                 break;
         }
         UpdateUI(0);
-        Data.PassTurn(); 
+        if(actualEnemy.actualHp > 0) Data.PassTurn(); 
     }
 
     /// <summary>
@@ -313,8 +314,8 @@ public class CardReader : MonoBehaviour
                 {
                     ActionName = "Stunning Blow";
                     ActionDescription = $"{actualEnemy.actualName} destroyed one card in your hand";
-                    GameObject toDestroy = DeckScript.cardInHand[Data.rng.Next(DeckScript.cardInHand.Count)];
-                    Destroy(toDestroy);
+                    actualDeck.DestroyCard(1);
+                    Shake(0);
                 }
 
                 break;
@@ -339,6 +340,27 @@ public class CardReader : MonoBehaviour
         else if (target == 1)
         {
             actualEnemy.GetComponent<ShakeTransformS>().Begin();
+        }
+    }
+
+    void OnGUI()
+    {
+        if (Data.gameState == States.Paused)
+        {
+            // Si on clique sur le bouton alors isPaused devient faux donc le jeu reprend
+            if (GUI.Button(new Rect(Screen.width / 2 - 40, Screen.height / 2 - 20, 80, 40), "Continuer"))
+            {
+                actualPlayer.Refresh();
+                actualEnemy.Refresh();
+                actualDeck.Refresh();
+                Data.gameState = States.PlayerTurn;
+            }
+            // Si on clique sur le bouton alors on ferme completment le jeu ou on charge la scene Menu Principal
+            // Dans le cas du bouton Quitter, il faut augmenter sa position Y pour qu'il soit plus bas.
+            if (GUI.Button(new Rect(Screen.width / 2 - 40, Screen.height / 2 + 40, 80, 40), "Quitter"))
+            {
+                SceneManager.LoadScene("Menu"); // Charge le menu principal
+            }
         }
     }
 }

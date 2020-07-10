@@ -95,7 +95,7 @@ public class PlayerDisp : MonoBehaviour
     /// <summary>
     /// Fonction rafraichisant les données du joueur a afficher. Utiliser en cas de changement de joueur.
     /// </summary>
-    void Refresh()
+    public void Refresh()
     {
         actualSprite = actualPlayer.Sprite;
         actualHp = actualPlayer.Hp;

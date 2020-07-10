@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using Assets.Script;
+using Assets.Script.Enums;
 
 public class EnemyDisp : MonoBehaviour
 {
@@ -73,12 +75,13 @@ public class EnemyDisp : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().sprite = actualSprite;
         EnemyPv.text = $"{actualHp}";
         EnemyName.text = $"{actualName}";
+        if (actualHp <= 0) Data.gameState = States.Paused;
     }
 
     /// <summary>
     /// Fonction rafraichisant les données de l'ennemi a afficher. Utiliser en cas de changement d'ennemi.
     /// </summary>
-    void Refresh()
+    public void Refresh()
     {
         actualSprite = toDisp.Sprite;
         actualHp = toDisp.Hp;
