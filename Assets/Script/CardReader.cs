@@ -42,23 +42,29 @@ public class CardReader : MonoBehaviour
     /// </summary>
     private DeckScript actualDeck;
 
+    
     /// <summary>
     /// Nom de la dernière action effectué, utilisé par l'UI
     /// </summary>
-    public string ActionName;
-
+    public static string ActionName;
     public static string ActionDescription;
     public static string ActionDescriptionBuffer;
+    [Header("UI:")]
     /// <summary>
     /// Texte UI du Log
     /// </summary>
     public TextMeshProUGUI LogText;
+    public GameObject EndBattleMenu;
+    public TextMeshProUGUI EndBattleMenuTitle;
 
     private void Update()
     {
         actualEnemy = enemyDisp.GetComponent<EnemyDisp>();
         actualPlayer = playerDisp.GetComponent<PlayerDisp>();
         actualDeck = Deck.GetComponent<DeckScript>();
+
+        if (Data.gameState == States.Paused) EndBattleMenu.SetActive(true);
+        else EndBattleMenu.SetActive(false);
     }
 
     /// <summary>
@@ -86,7 +92,7 @@ public class CardReader : MonoBehaviour
     /// <summary>
     /// Met a jour l'UI
     /// </summary>
-    /// <param name="action">0 = Joueur, 1 = Ennemi</param>
+    /// <param name="action">0 = Joueur, 1 = Ennemi, 2 = Player pick a card, 3 = Reset</param>
     private void UpdateUI(int action)
     {
         switch (action)
@@ -99,6 +105,9 @@ public class CardReader : MonoBehaviour
                 break;
             case 2:
                 LogText.text = $"{PlayerDisp.actualName}\n picks a card";
+                break;
+            case 3:
+                LogText.text = "";
                 break;
             default:
                 break;
@@ -343,24 +352,17 @@ public class CardReader : MonoBehaviour
         }
     }
 
-    void OnGUI()
+    public void ResetClick()
     {
-        if (Data.gameState == States.Paused)
-        {
-            // Si on clique sur le bouton alors isPaused devient faux donc le jeu reprend
-            if (GUI.Button(new Rect(Screen.width / 2 - 40, Screen.height / 2 - 20, 80, 40), "Continuer"))
-            {
-                actualPlayer.Refresh();
-                actualEnemy.Refresh();
-                actualDeck.Refresh();
-                Data.gameState = States.PlayerTurn;
-            }
-            // Si on clique sur le bouton alors on ferme completment le jeu ou on charge la scene Menu Principal
-            // Dans le cas du bouton Quitter, il faut augmenter sa position Y pour qu'il soit plus bas.
-            if (GUI.Button(new Rect(Screen.width / 2 - 40, Screen.height / 2 + 40, 80, 40), "Quitter"))
-            {
-                SceneManager.LoadScene("Menu"); // Charge le menu principal
-            }
-        }
+        actualPlayer.Refresh();
+        actualEnemy.Refresh();
+        actualDeck.Refresh();
+        UpdateUI(3);
+        Data.gameState = States.PlayerTurn;
+    }
+
+    public void MenuClick()
+    {
+        SceneManager.LoadScene("Menu"); // Charge le menu principal
     }
 }

@@ -37,14 +37,20 @@ class CardScript : MonoBehaviour
 
     void OnMouseEnter()
     {
-        transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
-        DescText.text = Data.CardToString(actualCard);
+        if (Data.gameState != States.Paused)
+        {
+            transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
+            DescText.text = Data.CardToString(actualCard);
+        }
     }
 
     void OnMouseExit()
     {
-        transform.localScale = new Vector3(1f, 1f, 1f);
-        DescText.text = "";
+        if (Data.gameState != States.Paused)
+        {
+            transform.localScale = new Vector3(1f, 1f, 1f);
+            DescText.text = "";
+        }
     }
 
     void OnMouseDown()
@@ -69,18 +75,19 @@ class CardScript : MonoBehaviour
     }
 
     private void OnMouseDrag()
-    {   //Permet de déplacer la carte en la glissant
-        Vector3 point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        point.x = Mathf.Clamp(point.x, -3.5f, 3.5f);
-        point.y = Mathf.Clamp(point.y, -4f, -0.5f);
-        point.z = transform.position.z;
-        transform.position = point;
+    {
 
 
-        /*Permet de déplacer la carte en la glissant si c'est au tour du joueur
-        if (Data.gameState == States.PlayerTurn) {
-            
-        }*/
+        //Permet de déplacer la carte en la glissant si c'est au tour du joueur
+        if (Data.gameState != States.Paused) 
+        {
+            //Permet de déplacer la carte en la glissant
+            Vector3 point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            point.x = Mathf.Clamp(point.x, -3.5f, 3.5f);
+            point.y = Mathf.Clamp(point.y, -4f, -0.5f);
+            point.z = transform.position.z;
+            transform.position = point;
+        }
     }
 
     void Update()
