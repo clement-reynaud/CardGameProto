@@ -77,7 +77,7 @@ public class CardReader : MonoBehaviour
         ActionDescription = ""; 
         ActionDescriptionBuffer = "";
         ReadCard(card);
-        if (Data.gameState == States.EnemyTurn) Invoke("EnemyAction",2.5f);
+        if (Data.gameState == States.EnemyTurn) Invoke("EnemyAction",UnityEngine.Random.Range(1.5f,3.5f));
     }
 
     void ActionPick()
@@ -86,7 +86,7 @@ public class CardReader : MonoBehaviour
         ActionDescriptionBuffer = "";
         UpdateUI(2);
         Data.PassTurn();
-        Invoke("EnemyAction", 2.5f);
+        Invoke("EnemyAction", UnityEngine.Random.Range(1.5f, 3.5f));
     }
 
     /// <summary>
