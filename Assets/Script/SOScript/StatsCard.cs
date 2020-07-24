@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Card", menuName = "Scripatble Object/Card")]
+[CreateAssetMenu(fileName = "NewCard", menuName = "Scripatble Object/Card/Card")]
 public class StatsCard : ScriptableObject
 {
     //Care Case Sensitive
@@ -12,4 +12,5 @@ public class StatsCard : ScriptableObject
     public string Description;
 
     public Sprite Sprite;
+
 }

@@ -16,4 +16,5 @@ MonoBehaviour:
   Cout: 5
   Description: Summon a waterfall above the enemy, inflicting <color=blue>5 water
     damage</color>
+  DrawWeight: 0
   Sprite: {fileID: 21300000, guid: b8f5919ba3c63c5408b6d8b0b9c0909b, type: 3}

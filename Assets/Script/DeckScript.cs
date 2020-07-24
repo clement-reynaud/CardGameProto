@@ -43,13 +43,7 @@ public class DeckScript : MonoBehaviour
         if (cardInHand.Count > 0) DestroyAllCard();
         _deck.Clear();
 
-        //Temporaire. Rajoute toutes les cartes du jeu dans le deck, puis mélange le deck
-        allCard = Resources.LoadAll<StatsCard>("Scriptable Object/Card");
-        foreach (StatsCard item in allCard)
-        {
-            _deck.Add(item);
-            _deck.Add(item);
-        }
+        _deck = Data.PlayerStringDeckToCardDeck();
         Data.Shuffle(_deck);
 
         TakeCard(4);

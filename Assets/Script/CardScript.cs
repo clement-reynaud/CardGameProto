@@ -40,7 +40,7 @@ class CardScript : MonoBehaviour
         if (Data.gameState != States.Paused)
         {
             transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
-            DescText.text = Data.CardToString(actualCard);
+            DescText.text = Data.CardDetailsToString(actualCard);
         }
     }
 
@@ -62,12 +62,12 @@ class CardScript : MonoBehaviour
     {
         //IF Statements qui permet d'utiliser la carte (broadcast "Action" cf CardReader.cs)
         //ou de replacer la carte a sa lastPos
-        if (canLand && PlayerDisp.actualMana >= actualCard.Cout && Data.gameState == States.PlayerTurn)
+        if (canLand && Data.Player.Mana >= actualCard.Cout && Data.gameState == States.PlayerTurn)
         {
             CardReader.BroadcastMessage("ActionCard", actualCard);
             Destroy(gameObject);
         }
-        else if(canLand && PlayerDisp.actualMana < actualCard.Cout || Data.gameState != States.PlayerTurn)
+        else if(canLand && Data.Player.Mana < actualCard.Cout || Data.gameState != States.PlayerTurn)
         {
             transform.position = lastPos;
         }

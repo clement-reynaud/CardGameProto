@@ -75,7 +75,11 @@ public class EnemyDisp : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().sprite = actualSprite;
         EnemyPv.text = $"{actualHp}";
         EnemyName.text = $"{actualName}";
-        if (actualHp <= 0) Data.gameState = States.Paused;
+        if (actualHp <= 0)
+        {
+            Data.gameState = States.Paused;
+            Data.GameOverTitle = "Enemy Slain:";
+        }
     }
 
     /// <summary>

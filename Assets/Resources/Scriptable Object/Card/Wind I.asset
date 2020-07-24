@@ -15,4 +15,5 @@ MonoBehaviour:
   Name: Wind I
   Cout: 5
   Description: Slap the enemy with wind, inflicting <color=green>5 wind damage</color>
+  DrawWeight: 0
   Sprite: {fileID: 21300000, guid: e640229677a8a3647b43355bee839534, type: 3}

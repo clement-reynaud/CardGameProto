@@ -16,4 +16,5 @@ MonoBehaviour:
   Cout: 0
   Description: Sacrifices the blood of an enemy, inflicting 5 damage to regenerate
     5 mana
+  DrawWeight: 0
   Sprite: {fileID: 21300000, guid: 377b33675b8e2b54b83d917c551a37a4, type: 3}

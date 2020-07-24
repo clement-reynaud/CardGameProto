@@ -10,7 +10,7 @@ using TreeEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class CardReader : MonoBehaviour
+public partial class CardReader : MonoBehaviour
 {
     /// <summary>
     /// Objet "EnemyDisp" de la scène
@@ -35,7 +35,7 @@ public class CardReader : MonoBehaviour
     /// <summary>
     /// Script de "PlayerDisp" permetant d'accéder aux données du joueur actuel, non traité par les données statiques
     /// </summary>
-    private PlayerDisp actualPlayer;
+    private PlayerScript ps = Data.Player;
 
     /// <summary>
     /// Script du "Deck" permetant d'accéder aux données de ce dernier
@@ -60,9 +60,10 @@ public class CardReader : MonoBehaviour
     private void Update()
     {
         actualEnemy = enemyDisp.GetComponent<EnemyDisp>();
-        actualPlayer = playerDisp.GetComponent<PlayerDisp>();
+        //actualPlayer = playerDisp.GetComponent<PlayerScript>();
         actualDeck = Deck.GetComponent<DeckScript>();
 
+        EndBattleMenuTitle.text = Data.GameOverTitle;
         if (Data.gameState == States.Paused) EndBattleMenu.SetActive(true);
         else EndBattleMenu.SetActive(false);
     }
@@ -98,13 +99,13 @@ public class CardReader : MonoBehaviour
         switch (action)
         {
             case 0:
-                LogText.text = $"<color=blue>{PlayerDisp.actualName}</color>\n uses \n<color=white>{ActionName}</color>\n\n{ActionDescription} {ActionDescriptionBuffer}";
+                LogText.text = $"<color=blue>{Data.Player.Name}</color>\n uses \n<color=white>{ActionName}</color>\n\n{ActionDescription} {ActionDescriptionBuffer}";
                 break;
             case 1:
                 LogText.text = $"<color=red>{actualEnemy.actualName}</color>\n uses \n<color=white>{ActionName}</color>\n\n{ActionDescription} {ActionDescriptionBuffer}";
                 break;
             case 2:
-                LogText.text = $"{PlayerDisp.actualName}\n picks a card";
+                LogText.text = $"{Data.Player.Name}\n picks a card";
                 break;
             case 3:
                 LogText.text = "";
@@ -158,7 +159,7 @@ public class CardReader : MonoBehaviour
            //Heal Cards
            case "Heal I":
                UseCard(card.Cout);
-               PlayerDisp.actualHp += 5;
+               Data.Player.Hp += 5;
                break;
 
 
@@ -188,7 +189,7 @@ public class CardReader : MonoBehaviour
         {
             cible.actualHp -= nb;
         }
-        PlayerDisp.actualMana -= cout;
+        Data.Player.Mana -= cout;
         Shake(1);
     }
 
@@ -201,7 +202,7 @@ public class CardReader : MonoBehaviour
     void DamageEnemy(EnemyDisp cible, int nb, int cout)
     {
         cible.actualHp -= nb;
-        PlayerDisp.actualMana -= cout;
+        Data.Player.Mana -= cout;
         Shake(1);
     }
 
@@ -211,7 +212,7 @@ public class CardReader : MonoBehaviour
     /// <param name="cout">Cout de la carte en Mana</param>
     void UseCard(int cout)
     {
-        PlayerDisp.actualMana -= cout;
+        Data.Player.Mana -= cout;
     }
 
     /// <summary>
@@ -231,13 +232,13 @@ public class CardReader : MonoBehaviour
                 if (selector < 90)
                 {
                     ActionName = "Basic Attack";
-                    PlayerDisp.actualHp -= Data.rng.Next(2,4);
+                    Data.Player.Hp -= Data.rng.Next(2,4);
                     Shake(0);
                 }
                 else 
                 {
                     ActionName = "Web Spit";
-                    PlayerDisp.actualMana -= 5;
+                    Data.Player.Mana -= 5;
                     Shake(0);
                 }
                 break;
@@ -247,20 +248,20 @@ public class CardReader : MonoBehaviour
                 if (selector <= 70)
                 {
                     ActionName = "Basic Attack";
-                    PlayerDisp.actualHp -= Data.rng.Next(2, 4);
+                    Data.Player.Hp -= Data.rng.Next(2, 4);
                     Shake(0);
                 }
                 else if(selector > 70 && selector < 90)
                 {
                     ActionName = "Web Spit";
                     ActionDescription = $"{actualEnemy.actualName} stole 5 mana";
-                    PlayerDisp.actualMana -= 5;
+                    Data.Player.Mana -= 5;
                     Shake(0);
                 }
                 else
                 {
                     ActionName = "Webby Bite";
-                    PlayerDisp.actualHp -= Data.rng.Next(3, 6);
+                    Data.Player.Hp -= Data.rng.Next(3, 6);
                     Shake(0);
                 }
                 break;
@@ -269,22 +270,22 @@ public class CardReader : MonoBehaviour
                 if (selector <= 70)
                 {
                     ActionName = "Basic Attack";
-                    PlayerDisp.actualHp -= Data.rng.Next(2, 4);
+                    Data.Player.Hp -= Data.rng.Next(2, 4);
                     Shake(0);
                 }
                 else if (selector > 70 && selector <= 90)
                 {
                     ActionName = "Web Spit";
                     ActionDescription = $"{actualEnemy.actualName} stole 5 mana";
-                    PlayerDisp.actualMana -= 5;
+                    Data.Player.Mana -= 5;
                     Shake(0);
                 }
                 else
                 {
                     ActionName = "Queen Bite";
                     ActionDescriptionBuffer = "and 5 mana was stolen";
-                    PlayerDisp.actualHp -= PlayerDisp.actualHp / 4;
-                    PlayerDisp.actualMana -= 5;
+                    Data.Player.Hp -= Data.Player.Hp / 4;
+                    Data.Player.Mana -= 5;
                     Shake(0);
                 }
                 break;
@@ -295,7 +296,7 @@ public class CardReader : MonoBehaviour
                 if (selector < 90)
                 {
                     ActionName = "Basic Attack";
-                    PlayerDisp.actualHp -= 4;
+                    Data.Player.Hp -= 4;
                     Shake(0);
                 }
                 else
@@ -311,7 +312,7 @@ public class CardReader : MonoBehaviour
                 if (selector <= 70)
                 {
                     ActionName = "Basic Attack";
-                    PlayerDisp.actualHp -= Data.rng.Next(4,6);
+                    Data.Player.Hp -= Data.rng.Next(4,6);
                     Shake(0);
                 }
                 else if (selector > 70 && selector < 90)
@@ -352,17 +353,22 @@ public class CardReader : MonoBehaviour
         }
     }
 
+    #region EndBattleMenu
+
     public void ResetClick()
     {
-        actualPlayer.Refresh();
+        Data.SavePlayer();
         actualEnemy.Refresh();
         actualDeck.Refresh();
         UpdateUI(3);
-        Data.gameState = States.PlayerTurn;
+        Data.gameState = States.PlayerTurn;   
     }
 
     public void MenuClick()
     {
-        SceneManager.LoadScene("Menu"); // Charge le menu principal
+        Data.SavePlayer();
+        SceneManager.LoadScene("Menu"); // Charge le menu principal     
     }
+
+    #endregion
 }

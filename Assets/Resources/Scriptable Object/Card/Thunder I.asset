@@ -16,4 +16,5 @@ MonoBehaviour:
   Cout: 5
   Description: Summon a thunderbolt onto the enemy, inflicting <color=yellow>5 thunder
     damage</color>
+  DrawWeight: 0
   Sprite: {fileID: 21300000, guid: 960551a393373b94aa8150afde61c579, type: 3}

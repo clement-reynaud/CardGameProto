@@ -15,4 +15,5 @@ MonoBehaviour:
   Name: Fire I
   Cout: 5
   Description: Cast a fireball toward the enemy, inflicting <color=red>5 fire damage</color>
+  DrawWeight: 0
   Sprite: {fileID: 21300000, guid: 7cd3c3b7ddd614f489d0266da4e88539, type: 3}

@@ -15,4 +15,5 @@ MonoBehaviour:
   Name: Heal I
   Cout: 10
   Description: Heal the player 5 HP
+  DrawWeight: 0
   Sprite: {fileID: 21300000, guid: c218e815aa695e640b5be21ba49826e3, type: 3}
