@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewEnemy",menuName = "Scripatble Object/Enemy")]
+[CreateAssetMenu(fileName = "NewEnemy",menuName = "Scripatble Object/Enemy/Enemy")]
 public class StatsEnemy : ScriptableObject
 {
     public string Name;
@@ -10,6 +10,9 @@ public class StatsEnemy : ScriptableObject
     public int Hp;
 
     public List<Elements> Weakness = new List<Elements>();
+
+    public int minGoldReward = 5;
+    public int maxGoldReward = 10;
 
     public Sprite Sprite;
 

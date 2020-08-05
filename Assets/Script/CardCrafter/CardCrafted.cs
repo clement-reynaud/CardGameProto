@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
-public class CardCrafted : MonoBehaviour
+public class CardCrafted : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public StatsCard card;
 
-    public Image CardImage;
+    public UnityEngine.UI.Image CardImage;
+    public UnityEngine.UI.Image BG;
     public TextMeshProUGUI CardName;
 
     private void Start()
@@ -17,15 +20,19 @@ public class CardCrafted : MonoBehaviour
         CardName.text = "";
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void RevealButtonClick()
     {
         CardImage.sprite = card.Sprite;
         CardName.text = card.Name;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        BG.color = new Color(BG.color.r, BG.color.g, BG.color.b, 255);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        BG.color = new Color(BG.color.r, BG.color.g, BG.color.b, 0);
     }
 }

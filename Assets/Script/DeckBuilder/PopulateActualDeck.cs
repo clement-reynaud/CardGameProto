@@ -19,10 +19,10 @@ public class PopulateActualDeck : MonoBehaviour
 
 	void Populate()
 	{
-		Data.Player.CardInventory.Sort();
-		Data.Player.Deck.Sort();
+		GameData.Player.CardInventory.Sort();
+		GameData.Player.Deck.Sort();
 
-		List<StatsCard> playerDeck = Data.PlayerStringDeckToCardDeck();
+		List<StatsCard> playerDeck = GameData.PlayerStringDeckToCardDeck();
 		GameObject newObj; // Create GameObject instance
 
 		for (int i = 0; i < playerDeck.Count; i++)

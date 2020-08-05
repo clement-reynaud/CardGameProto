@@ -14,7 +14,7 @@ public class DeckBuilderManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Data.Player.Deck.Sort();
+        GameData.Player.Deck.Sort();
     }
 
 

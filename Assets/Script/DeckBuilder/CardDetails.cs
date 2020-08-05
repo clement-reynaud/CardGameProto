@@ -28,7 +28,7 @@ public class CardDetails : MonoBehaviour
     {
         if (selected != null) { 
             CardImage.sprite = selected.Sprite;
-            TextDesc.text = Data.CardDetailsToString(selected);
+            TextDesc.text = GameData.CardDetailsToString(selected);
             if (CardType == typeof(CardListObject))
             {
                 TextDesc.text += "\n\n<u>In Deck</u>";
@@ -52,10 +52,10 @@ public class CardDetails : MonoBehaviour
 
     public void AddCardToDeck()
     {
-        if(Data.Player.Deck.Count < 20)
+        if(GameData.Player.Deck.Count < 20)
         {
-            Data.Player.Deck.Add(selected.Name);
-            Data.Player.CardInventory.Remove(selected.Name);
+            GameData.Player.Deck.Add(selected.Name);
+            GameData.Player.CardInventory.Remove(selected.Name);
         }
         else
         {
@@ -66,10 +66,10 @@ public class CardDetails : MonoBehaviour
 
     public void RemoveCardFromDeck()
     {
-        if (Data.Player.Deck.Count > 1)
+        if (GameData.Player.Deck.Count > 1)
         {
-            Data.Player.CardInventory.Add(selected.Name);
-            Data.Player.Deck.Remove(selected.Name);
+            GameData.Player.CardInventory.Add(selected.Name);
+            GameData.Player.Deck.Remove(selected.Name);
         }
         else
         {
@@ -84,6 +84,6 @@ public class CardDetails : MonoBehaviour
         CardType = null;
         DeckDisplay.DeleteAndPopulate();
         InvDisplay.DeleteAndPopulate();
-        Data.SavePlayer();
+        GameData.SavePlayer();
     }
 }

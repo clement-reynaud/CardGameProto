@@ -11,6 +11,19 @@ public class StatsCard : ScriptableObject
 
     public string Description;
 
+    public Rarity rarity;
+
     public Sprite Sprite;
 
+}
+
+public enum Rarity
+{
+    NONE,
+    COMMON,
+    UNCOMMON,
+    RARE,
+    MYTHIC,
+    LEGENDARY,
+    UNIQUE
 }

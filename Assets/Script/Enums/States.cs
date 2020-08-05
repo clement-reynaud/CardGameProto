@@ -10,6 +10,6 @@ namespace Assets.Script.Enums
     {
         PlayerTurn,
         EnemyTurn,
-        Paused
+        BattleEnded
     }
 }

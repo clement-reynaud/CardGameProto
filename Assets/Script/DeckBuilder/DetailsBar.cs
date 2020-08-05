@@ -14,8 +14,8 @@ public class DetailsBar : MonoBehaviour
 
     private void Update()
     {
-        cardInDeck.text = $"{Data.Player.Deck.Count}/{maxNbOfCardInDeck}";
-        if(Data.Player.Deck.Count == 1 || Data.Player.Deck.Count == maxNbOfCardInDeck)
+        cardInDeck.text = $"{GameData.Player.Deck.Count}/{maxNbOfCardInDeck}";
+        if(GameData.Player.Deck.Count == 1 || GameData.Player.Deck.Count == maxNbOfCardInDeck)
         {
             cardInDeck.color = Color.red;
         }

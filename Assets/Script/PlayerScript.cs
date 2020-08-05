@@ -14,9 +14,7 @@ public class PlayerScript
     [NonSerialized]
     public Sprite Sprite;
 
-    public List<string> Deck = new List<string>();
-
-    public List<string> CardInventory = new List<string>();
+    public int MaxHp;
 
     /// <summary>
     /// Pv du actuel du joueur
@@ -44,6 +42,7 @@ public class PlayerScript
     public delegate void OnVariableChangeDelegate(int newVal);
     public event OnVariableChangeDelegate OnHpChange;
 
+    public int MaxMana;
     /// <summary>
     /// Mana actuel du joueur
     /// </summary>
@@ -61,16 +60,89 @@ public class PlayerScript
     }
 
     public int mana;
+
+    /// <summary>
+    /// Stats that define the player Physical Damage
+    /// </summary>
+    public int Str;
+
+    /// <summary>
+    /// Stats that define the player Magical Damage
+    /// </summary>
+    public int Mag;
+
+    /// <summary>
+    /// Stats that define the player Supportive Magic strength
+    /// </summary>
+    public int Wis;
+    
     /// <summary>
     /// Nom du joeur
     /// </summary>
     public string Name;
 
-    public PlayerScript(int hp, int mana, string name)
+    public List<string> Deck = new List<string>();
+
+    public List<string> CardInventory = new List<string>();
+
+    public int Souls = 0;
+
+    public int Golds = 0;
+
+    public int HPPots = 0;
+    public int ManaPots = 0;
+
+    /*public void Init()
     {
-        Hp = hp;
-        Mana = mana;
+        MaxHp = 30;
+        MaxMana = 30;
+        Hp = MaxHp;
+        Mana = MaxMana;
+        Name = "Hero";
+        Str = 5;
+        Mag = 5;
+        Wis = 5;
+
+        Souls = 10;
+
+        ManaPots = 2;
+        HPPots = 2;
+
+        Deck.Add("Fire I");
+        Deck.Add("Fire I");
+        Deck.Add("Water I");
+        Deck.Add("Water I");
+        Deck.Add("Thunder I");
+        Deck.Add("Thunder I");
+        Deck.Add("Wind I");
+        Deck.Add("Wind I");
+    }*/
+
+    public PlayerScript(int maxHp, int maxMana, string name)
+    {
+        MaxHp = maxHp;
+        MaxMana = maxMana;
+        Hp = MaxHp;
+        Mana = MaxMana;
         Name = name;
+       
+        Str = 5;
+        Mag = 5;
+        Wis = 5;
+
+        Souls = 10;
+
+        ManaPots = 2;
+        HPPots = 2;
+
+        Deck.Add("Fire I");
+        Deck.Add("Fire I");
+        Deck.Add("Water I");
+        Deck.Add("Water I");
+        Deck.Add("Thunder I");
+        Deck.Add("Thunder I");
+        Deck.Add("Wind I");
+        Deck.Add("Wind I");
     }
 
     public void PlayerDisp_OnHpChange(int newVal)

@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a979a4cbb53379a4382124397d497179, type: 3}
   m_Name: BaseCardBooster
   m_EditorClassIdentifier: 
+  Name: Starter Booster
+  Description: 
+  OpeningPrice: 5
+  cardDrawed: 5
+  isActivated: 1
   commonWeight: 30
-  uncommonWeight: 1
+  uncommonWeight: 15
   rareWeight: 10
   mythicWeight: 6
   legendaryWeight: 3

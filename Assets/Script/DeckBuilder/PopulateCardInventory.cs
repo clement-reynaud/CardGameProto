@@ -9,7 +9,6 @@ public class PopulateCardInventory : MonoBehaviour
 	void Start()
 	{
 		Populate();
-		Debug.Log(Data.Player.CardInventory.Count);	
 	}
 
 	void Update()
@@ -19,10 +18,10 @@ public class PopulateCardInventory : MonoBehaviour
 
 	public void Populate()
 	{
-		Data.Player.CardInventory.Sort();
-		Data.Player.Deck.Sort();
+		GameData.Player.CardInventory.Sort();
+		GameData.Player.Deck.Sort();
 
-		List<StatsCard> cardInventory = Data.StringDeckToCardDeck(Data.Player.CardInventory);
+		List<StatsCard> cardInventory = GameData.StringDeckToCardDeck(GameData.Player.CardInventory);
 		GameObject newObj; // Create GameObject instance
 
 		for (int i = 0; i < cardInventory.Count; i++)
